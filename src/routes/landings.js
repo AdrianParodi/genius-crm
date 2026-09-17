@@ -28,6 +28,40 @@ router.get('/', (req, res, next) => {
 
 /**
  * @swagger
+ * /api/landings/{client}:
+ *   get:
+ *     summary: Obtener una landing por cliente
+ *     tags: [Landings]
+ *     parameters:
+ *       - in: path
+ *         name: client
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Lista de landings por cliente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Landing'
+ *       404:
+ *         description: Landing no encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.get('/:client', (req, res, next) => {
+  try {
+    res.json(landingService.getAllLandingsByClient(req.params.client))
+  } catch (err) {
+    next(err)
+  }
+})
+
+/**
+ * @swagger
  * /api/landings/{id}:
  *   get:
  *     summary: Obtener una landing por ID
@@ -138,6 +172,54 @@ router.get('/:id/preview', (req, res, next) => {
     const html = landingService.getLandingPreview(req.params.id)
     res.setHeader('Content-Type', 'text/html')
     res.send(html)
+  } catch (err) {
+    next(err)
+  }
+})
+
+/**
+ * @swagger
+ * /api/landings/{id}:
+ *   patch:
+ *     summary: Editar estado de una landing
+ *     description: Se usa para editar el estado de una landing
+ *     tags: [Landings]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/EditStatusLandingRequest'
+ *           example:
+ *             status: active
+ *     responses:
+ *       200:
+ *         description: Estado de landing actualizado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/EditStatusLandingRequest'
+ *       404:
+ *         description: Landing no encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+
+router.patch('/:id', (req, res, next) => {
+
+  const { status } = req.body;
+
+  try {
+    const landing = landingService.editStatusLanding(req.params.id, status)
+    res.status(201).json(landing)
   } catch (err) {
     next(err)
   }

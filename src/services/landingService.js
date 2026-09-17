@@ -8,6 +8,13 @@ function getAllLandings() {
   }))
 }
 
+function getAllLandingsByClient(client) {
+
+  const landing = db.landings.filter(landing => landing.client === client);
+
+  return landing;
+}
+
 function getLandingById(id) {
   const landing = db.landings.find(l => l.id === Number(id))
   if (!landing) {
@@ -15,8 +22,17 @@ function getLandingById(id) {
     err.statusCode = 404
     throw err
   }
-  return landing
+  return landing;
 }
+
+function editStatusLanding(id, status){
+
+  const landing = getLandingById(id)
+  landing.status = status
+  
+  return landing;
+}
+
 
 function createLanding(data) {
   const template = templateService.getTemplateById(data.templateId)
@@ -73,4 +89,4 @@ function createLead(landingId, data) {
   return lead
 }
 
-module.exports = { getAllLandings, getLandingById, createLanding, getLandingPreview, getLeadsByLanding, createLead }
+module.exports = { getAllLandings, getAllLandingsByClient, getLandingById, createLanding, getLandingPreview, getLeadsByLanding, createLead, editStatusLanding }

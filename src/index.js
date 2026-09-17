@@ -51,6 +51,20 @@ const swaggerSpec = swaggerJsdoc({
             fields: { type: 'object', additionalProperties: true }
           }
         },
+        EditStatusLandingRequest: {
+          type: 'object',
+          required: ['status'],
+          properties: {
+            id: { type: 'integer', example: 1 },
+            templateId: { type: 'integer', example: 1 },
+            name: { type: 'string', example: 'Hot Sale 2026 - SuenoSimple' },
+            client: { type: 'string', example: 'SuenoSimple' },
+            status: { type: 'string', enum: ['draft', 'active', 'inactive'], example: 'active' },
+            fields: { type: 'object', additionalProperties: true },
+            leadCount: { type: 'integer', example: 3 },
+            createdAt: { type: 'string', format: 'date-time' }
+          }
+        },
         Lead: {
           type: 'object',
           properties: {
@@ -61,16 +75,6 @@ const swaggerSpec = swaggerJsdoc({
             phone: { type: 'string', example: '1134567890' },
             message: { type: 'string', nullable: true },
             createdAt: { type: 'string', format: 'date-time' }
-          }
-        },
-        CreateLeadRequest: {
-          type: 'object',
-          required: ['name', 'email'],
-          properties: {
-            name: { type: 'string', example: 'Maria Gomez' },
-            email: { type: 'string', format: 'email', example: 'maria@gmail.com' },
-            phone: { type: 'string', example: '1134567890', nullable: true },
-            message: { type: 'string', nullable: true }
           }
         },
         Error: {

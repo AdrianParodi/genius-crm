@@ -63,7 +63,23 @@ const db = {
         heroImageUrl: 'https://via.placeholder.com/1200x400'
       },
       createdAt: '2026-04-12T11:00:00.000Z'
-    }
+    },
+     {
+      id: 5,
+      templateId: 2,
+      name: 'Dia de la madre 2026 - SuenoSimple',
+      client: 'SuenoSimple',
+      status: 'draft',
+      fields: {
+        title: 'Dia de la madre',
+        subtitle: 'Lo mejor para la mejor mama',
+        ctaText: 'Ver productos',
+        ctaUrl: 'https://suenosimple.com/dia-de-la-madre',
+        eventDate: '2026-11-27',
+        heroImageUrl: 'https://via.placeholder.com/1200x400'
+      },
+      createdAt: '2026-03-15T09:00:00.000Z'
+    },
   ],
   leads: [
     {
