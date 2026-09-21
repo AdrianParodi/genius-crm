@@ -6,33 +6,41 @@ function getAllLandings() {
     ...landing,
     leadCount: 0
   }))
-}
+};
 
 function getAllLandingsByClient(client) {
 
   const landing = db.landings.filter(landing => landing.client === client);
-
-  return landing;
-}
-
-function getLandingById(id) {
-  const landing = db.landings.find(l => l.id === Number(id))
-  if (!landing) {
-    const err = new Error(`Landing not found: ${id}`)
-    err.statusCode = 404
-    throw err
+  if (landing.length === 0) {
+    const error = new Error(`Landing not found: ${client}`);
+    error.statusCode = 404;
+    throw error;
   }
   return landing;
-}
+
+};
+
+function getLandingById(id) {
+    
+  const landing = db.landings.find(l => l.id === id);
+
+  return landing;
+};
 
 function editStatusLanding(id, status){
 
-  const landing = getLandingById(id)
-  landing.status = status
+  const landing = getLandingById(id);
+  
+  if (!landing) {
+    const error = new Error(`Landing not found: ${id}`);
+    error.statusCode = 404;
+    throw error;
+  }
+
+  landing.status = status;
   
   return landing;
-}
-
+};
 
 function createLanding(data) {
   const template = templateService.getTemplateById(data.templateId)
@@ -49,7 +57,7 @@ function createLanding(data) {
 
   db.landings.push(landing)
   return landing
-}
+};
 
 function getLandingPreview(id) {
   const landing = getLandingById(id)
@@ -65,12 +73,12 @@ function getLandingPreview(id) {
   html = html.replace(/\{\{clientName\}\}/g, landing.client || '')
 
   return html
-}
+};
 
 function getLeadsByLanding(landingId) {
   getLandingById(landingId)
   return db.leads.filter(l => l.landingId === Number(landingId))
-}
+};
 
 function createLead(landingId, data) {
   getLandingById(landingId)
@@ -87,6 +95,7 @@ function createLead(landingId, data) {
 
   db.leads.push(lead)
   return lead
-}
+};
 
-module.exports = { getAllLandings, getAllLandingsByClient, getLandingById, createLanding, getLandingPreview, getLeadsByLanding, createLead, editStatusLanding }
+module.exports = { getAllLandings, getAllLandingsByClient, getLandingById, createLanding, getLandingPreview, getLeadsByLanding, createLead, editStatusLanding };
+

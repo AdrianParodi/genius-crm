@@ -21,76 +21,8 @@ const landingService = require('../services/landingService')
 router.get('/', (req, res, next) => {
   try {
     res.json(landingService.getAllLandings())
-  } catch (err) {
-    next(err)
-  }
-})
-
-/**
- * @swagger
- * /api/landings/{client}:
- *   get:
- *     summary: Obtener una landing por cliente
- *     tags: [Landings]
- *     parameters:
- *       - in: path
- *         name: client
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Lista de landings por cliente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Landing'
- *       404:
- *         description: Landing no encontrada
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.get('/:client', (req, res, next) => {
-  try {
-    res.json(landingService.getAllLandingsByClient(req.params.client))
-  } catch (err) {
-    next(err)
-  }
-})
-
-/**
- * @swagger
- * /api/landings/{id}:
- *   get:
- *     summary: Obtener una landing por ID
- *     tags: [Landings]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Landing encontrada
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Landing'
- *       404:
- *         description: Landing no encontrada
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.get('/:id', (req, res, next) => {
-  try {
-    res.json(landingService.getLandingById(req.params.id))
-  } catch (err) {
-    next(err)
+  } catch (error) {
+    next(error)
   }
 })
 
@@ -172,56 +104,8 @@ router.get('/:id/preview', (req, res, next) => {
     const html = landingService.getLandingPreview(req.params.id)
     res.setHeader('Content-Type', 'text/html')
     res.send(html)
-  } catch (err) {
-    next(err)
-  }
-})
-
-/**
- * @swagger
- * /api/landings/{id}:
- *   patch:
- *     summary: Editar estado de una landing
- *     description: Se usa para editar el estado de una landing
- *     tags: [Landings]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/EditStatusLandingRequest'
- *           example:
- *             status: active
- *     responses:
- *       200:
- *         description: Estado de landing actualizado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/EditStatusLandingRequest'
- *       404:
- *         description: Landing no encontrada
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-
-router.patch('/:id', (req, res, next) => {
-
-  const { status } = req.body;
-
-  try {
-    const landing = landingService.editStatusLanding(req.params.id, status)
-    res.status(201).json(landing)
-  } catch (err) {
-    next(err)
+  } catch (error) {
+    next(error)
   }
 })
 
@@ -306,6 +190,152 @@ router.post('/:id/leads', (req, res, next) => {
   } catch (err) {
     next(err)
   }
-})
+});
 
-module.exports = router
+/**
+ * @swagger
+ * /api/landings/{id}:
+ *   get:
+ *     summary: Obtener una landing por ID
+ *     tags: [Landings]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Landing encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Landing'
+ *       404:
+ *         description: Landing no encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.get('/id/:id', (req, res, next) => {
+
+  const { id } = req.params;
+  const parseId = parseInt(id);
+
+  if(isNaN(parseId)){
+    return res.status(400).json({message: "Id invalido"})
+  }
+
+  try {
+    const landing = landingService.getLandingById(parseId);
+    res.status(200).json(landing)
+  } catch (error) {
+    next(error)
+  }
+});
+
+/**
+ * @swagger
+ * /api/landings/{client}:
+ *   get:
+ *     summary: Obtener una landing por cliente
+ *     tags: [Landings]
+ *     parameters:
+ *       - in: path
+ *         name: client
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Lista de landings por cliente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Landing'
+ *       404:
+ *         description: Cliente no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.get('/client/:client', (req, res, next) => {
+
+  const {client} = req.params;
+
+  if(client.length < 3 || client.length > 30){
+    return res.status(400).json({message: "El campo 'client' debe contener entre 3 y 30."})
+  }
+
+  try {
+    res.json(landingService.getAllLandingsByClient(client))
+  } catch (err) {
+    next(err)
+  }
+});
+
+/**
+ * @swagger
+ * /api/landings/{id}:
+ *   patch:
+ *     summary: Editar estado de una landing
+ *     description: Se usa para editar el estado de una landing
+ *     tags: [Landings]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/EditStatusLandingRequest'
+ *           example:
+ *             status: active
+ *     responses:
+ *       200:
+ *         description: Estado de landing actualizado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/EditStatusLandingRequest'
+ *       404:
+ *         description: Landing no encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.patch('/:id', (req, res, next) => {
+
+  const { id } = req.params;
+  const parseId = parseInt(id);
+  const { status } = req.body;
+  const estados = ['active', 'inactive', 'draft'];
+
+  if(isNaN(parseId)){
+    return res.status(400).json({message: "Id invalido."})
+  }
+
+  if(!status || typeof status !== "string"){
+    return res.status(400).json({message: "El campo 'status' es obligatorio y debe ser un texto."})
+  }
+
+  if(!estados.includes(status.toLowerCase())){
+    return res.status(400).json({message: "Estado invalido, intente nuevamente."})
+  }
+
+  try {
+    const landing = landingService.editStatusLanding(parseId, status);
+    res.status(200).json(landing)
+  } catch (error) {
+    next(error)
+  }
+});
+
+module.exports = router;
