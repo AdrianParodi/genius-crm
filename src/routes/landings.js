@@ -1,6 +1,14 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const cors = require('cors');
+const app = express()
 const landingService = require('../services/landingService')
+
+require('dotenv').config();
+
+app.use(cors({
+
+  // origin: process.env.FRONT
+}))
 
 /**
  * @swagger
@@ -18,9 +26,33 @@ const landingService = require('../services/landingService')
  *               items:
  *                 $ref: '#/components/schemas/Landing'
  */
-router.get('/', (req, res, next) => {
+app.get('/', (req, res, next) => {
   try {
     res.json(landingService.getAllLandings())
+  } catch (error) {
+    next(error)
+  }
+})
+
+/**
+ * @swagger
+ * /api/landings/summary:
+ *   get:
+ *     summary: Listar todos los leads
+ *     tags: [Leads]
+ *     responses:
+ *       200:
+ *         description: Listar los leads
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Leads'
+ */
+app.get('/summary', (req, res, next) => {
+  try {
+    res.json(landingService.getCountleads())
   } catch (error) {
     next(error)
   }
@@ -63,7 +95,7 @@ router.get('/', (req, res, next) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post('/', (req, res, next) => {
+app.post('/', (req, res, next) => {
   try {
     const landing = landingService.createLanding(req.body)
     res.status(201).json(landing)
@@ -99,9 +131,17 @@ router.post('/', (req, res, next) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get('/:id/preview', (req, res, next) => {
+app.get('/:id/preview', (req, res, next) => {
+  
+  const { id } = req.params;
+  const parseId = parseInt(id);
+
+  if(isNaN(parseId)){
+    return res.status(400).json({message: "Id invalido"})
+  }
+
   try {
-    const html = landingService.getLandingPreview(req.params.id)
+    const html = landingService.getLandingPreview(id)
     res.setHeader('Content-Type', 'text/html')
     res.send(html)
   } catch (error) {
@@ -137,9 +177,17 @@ router.get('/:id/preview', (req, res, next) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get('/:id/leads', (req, res, next) => {
+app.get('/:id/leads', (req, res, next) => {
+
+  const { id } = req.params;
+  const parseId = parseInt(id);
+
+  if(isNaN(parseId)){
+    return res.status(400).json({message: "Id invalido"})
+  }
+
   try {
-    res.json(landingService.getLeadsByLanding(req.params.id))
+    res.json(landingService.getLeadsByLanding(parseId))
   } catch (err) {
     next(err)
   }
@@ -183,7 +231,7 @@ router.get('/:id/leads', (req, res, next) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post('/:id/leads', (req, res, next) => {
+app.post('/:id/leads', (req, res, next) => {
   try {
     const lead = landingService.createLead(req.params.id, req.body)
     res.status(201).json(lead)
@@ -194,7 +242,7 @@ router.post('/:id/leads', (req, res, next) => {
 
 /**
  * @swagger
- * /api/landings/{id}:
+ * /api/landings/id/{id}:
  *   get:
  *     summary: Obtener una landing por ID
  *     tags: [Landings]
@@ -218,7 +266,7 @@ router.post('/:id/leads', (req, res, next) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get('/id/:id', (req, res, next) => {
+app.get('/id/:id', (req, res, next) => {
 
   const { id } = req.params;
   const parseId = parseInt(id);
@@ -237,7 +285,7 @@ router.get('/id/:id', (req, res, next) => {
 
 /**
  * @swagger
- * /api/landings/{client}:
+ * /api/landings/client/{client}:
  *   get:
  *     summary: Obtener una landing por cliente
  *     tags: [Landings]
@@ -261,7 +309,7 @@ router.get('/id/:id', (req, res, next) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get('/client/:client', (req, res, next) => {
+app.get('/client/:client', (req, res, next) => {
 
   const {client} = req.params;
 
@@ -311,7 +359,7 @@ router.get('/client/:client', (req, res, next) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.patch('/:id', (req, res, next) => {
+app.patch('/:id', (req, res, next) => {
 
   const { id } = req.params;
   const parseId = parseInt(id);
@@ -338,4 +386,4 @@ router.patch('/:id', (req, res, next) => {
   }
 });
 
-module.exports = router;
+module.exports = app;
