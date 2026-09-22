@@ -65,6 +65,17 @@ const swaggerSpec = swaggerJsdoc({
             createdAt: { type: 'string', format: 'date-time' }
           }
         },
+
+         CreateLeadRequest: {
+          type: 'object',
+          required: ['name', 'email'],
+          properties: {
+            name: { type: 'string', example: 'Maria Gomez' },
+            email: { type: 'string', format: 'email', example: 'maria@gmail.com' },
+            phone: { type: 'string', example: '1134567890' },
+            message: { type: 'string', nullable: true }
+          }
+        },
         Lead: {
           type: 'object',
           properties: {
