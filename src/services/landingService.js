@@ -1,6 +1,11 @@
 const db = require('../data/db')
 const templateService = require('./templateService')
 
+//  Function to normalize strings for comparison, removing accents and converting to lowercase
+function normalize(str) {
+  return str.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+}
+
 function getAllLandings() {
   return db.landings.map(landing => ({
     ...landing,
@@ -8,9 +13,10 @@ function getAllLandings() {
   }))
 };
 
-function getAllLandingsByClient(client) {
-
-  const landing = db.landings.filter(landing => landing.client === client);
+function getAllLandingsByClient(client) { 
+  const normalizedClient = normalize(client);
+  const landing = db.landings.filter(landing => landing.client.toLowerCase().includes(normalizedClient));
+   
   if (landing.length === 0) {
     const error = new Error(`Landing not found: ${client}`);
     error.statusCode = 404;
@@ -86,8 +92,8 @@ function createLead(landingId, data) {
   const lead = {
     id: db.nextLeadId++,
     landingId: Number(landingId),
-    name: data.name,
-    email: data.email,
+    name: data.name.trim(),
+    email: data.email.trim().toLowerCase(),
     phone: data.phone || null,
     message: data.message || null,
     createdAt: new Date().toISOString()

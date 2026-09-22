@@ -176,6 +176,12 @@ router.get('/:id/leads', (req, res, next) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Lead'
+ *       400:
+ *         description: Datos inválidos (name o email faltante/inválido)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: Landing no encontrada
  *         content:
@@ -184,6 +190,17 @@ router.get('/:id/leads', (req, res, next) => {
  *               $ref: '#/components/schemas/Error'
  */
 router.post('/:id/leads', (req, res, next) => {
+  const { name, email } = req.body
+
+  if (!name || typeof name !== 'string' || name.trim().length === 0) {
+    return res.status(400).json({ message: "El campo 'name' es requerido." })
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!email || typeof email !== 'string' || !emailRegex.test(email.trim())) {
+    return res.status(400).json({ message: "El campo 'email' es requerido y debe tener un formato válido." })
+  }
+
   try {
     const lead = landingService.createLead(req.params.id, req.body)
     res.status(201).json(lead)
@@ -194,7 +211,7 @@ router.post('/:id/leads', (req, res, next) => {
 
 /**
  * @swagger
- * /api/landings/{id}:
+ * /api/landings/id/{id}:
  *   get:
  *     summary: Obtener una landing por ID
  *     tags: [Landings]
@@ -237,7 +254,7 @@ router.get('/id/:id', (req, res, next) => {
 
 /**
  * @swagger
- * /api/landings/{client}:
+ * /api/landings/client/{client}:
  *   get:
  *     summary: Obtener una landing por cliente
  *     tags: [Landings]
