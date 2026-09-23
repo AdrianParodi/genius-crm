@@ -23,6 +23,11 @@ function getAllLandingsByClient(client) {
 function getLandingById(id) {
     
   const landing = db.landings.find(l => l.id === id);
+  if (!landing) {
+    const error = new Error(`Landing not found: ${id}`);
+    error.statusCode = 404;
+    throw error;
+  }
 
   return landing;
 };
@@ -30,12 +35,6 @@ function getLandingById(id) {
 function editStatusLanding(id, status){
 
   const landing = getLandingById(id);
-  
-  if (!landing) {
-    const error = new Error(`Landing not found: ${id}`);
-    error.statusCode = 404;
-    throw error;
-  }
 
   landing.status = status;
   
