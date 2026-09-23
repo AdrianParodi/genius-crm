@@ -1,14 +1,6 @@
 const express = require('express');
-const cors = require('cors');
 const app = express()
 const landingService = require('../services/landingService')
-
-require('dotenv').config();
-
-app.use(cors({
-
-  // origin: process.env.FRONT
-}))
 
 /**
  * @swagger
@@ -224,14 +216,33 @@ app.get('/:id/leads', (req, res, next) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Lead'
+ *       400:
+ *         description: Datos inválidos (name o email faltante/inválido)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: Landing no encontrada
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Error'
+ *     409:
+ *         description: El email ya está registrado en esta landing
  */
 app.post('/:id/leads', (req, res, next) => {
+  const { name, email } = req.body
+
+  if (!name || typeof name !== 'string' || name.trim().length === 0) {
+    return res.status(400).json({ message: "El campo 'name' es requerido." })
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!email || typeof email !== 'string' || !emailRegex.test(email.trim())) {
+    return res.status(400).json({ message: "El campo 'email' es requerido y debe tener un formato válido." })
+  }
+
   try {
     const lead = landingService.createLead(req.params.id, req.body)
     res.status(201).json(lead)

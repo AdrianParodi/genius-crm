@@ -1,6 +1,10 @@
 const db = require('../data/db')
 const templateService = require('./templateService')
 
+function normalize(str) {
+  return str.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+}
+
 function getAllLandings() {
   return db.landings.map(landing => ({
     ...landing,
@@ -10,7 +14,8 @@ function getAllLandings() {
 
 function getAllLandingsByClient(client) {
 
-  const landing = db.landings.filter(landing => landing.client === client);
+  const normalizedClient = normalize(client);
+  const landing = db.landings.filter(landing => normalize(landing.client) === normalizedClient);
   if (landing.length === 0) {
     const error = new Error(`Landings not found: ${client}`);
     error.statusCode = 404;
@@ -22,7 +27,7 @@ function getAllLandingsByClient(client) {
 
 function getLandingById(id) {
     
-  const landing = db.landings.find(l => l.id === id);
+  const landing = db.landings.find(l => l.id === Number(id));
    if (!landing) {
     const error = new Error(`Landing not found: ${id}`);
     error.statusCode = 404;
@@ -112,11 +117,23 @@ function getCountleads() {
 function createLead(landingId, data) {
   getLandingById(landingId)
 
+  const email = data.email.trim().toLowerCase();
+
+  const alreadyRegistered = db.leads.some(
+    l => l.landingId === Number(landingId) && l.email === email
+  );
+
+  if (alreadyRegistered) {
+    const error = new Error(`El email '${email}' ya está registrado en esta landing.`);
+    error.statusCode = 409;
+    throw error;
+  }
+
   const lead = {
     id: db.nextLeadId++,
     landingId: Number(landingId),
-    name: data.name,
-    email: data.email,
+    name: data.name.trim(),
+    email: email,
     phone: data.phone || null,
     message: data.message || null,
     createdAt: new Date().toISOString()
