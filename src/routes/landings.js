@@ -1,6 +1,14 @@
 const express = require('express');
+const cors = require('cors');
 const app = express()
 const landingService = require('../services/landingService')
+
+// require('dotenv').config();
+
+app.use(cors({
+
+  // origin: process.env.FRONT
+}))
 
 /**
  * @swagger
