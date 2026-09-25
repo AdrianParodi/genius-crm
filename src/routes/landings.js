@@ -6,8 +6,7 @@ const landingService = require('../services/landingService')
 require('dotenv').config();
 
 app.use(cors({
-
-  // origin: process.env.FRONT
+  origin: process.env.FRONT
 }))
 
 /**
@@ -237,11 +236,18 @@ app.get('/:id/leads', (req, res, next) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post('/:id/leads', (req, res, next) => {
-  const { name, email } = req.body
+app.post('/:id/leads', (req, res, next) => {
+  const { name, email } = req.body;
+
+  const { id } = req.params;
+  const parseId = parseInt(id);
+
+  if(isNaN(parseId)){
+    return res.status(400).json({message: "Id invalido"})
+  }
 
   if (!name || typeof name !== 'string' || name.trim().length === 0) {
-    return res.status(400).json({ message: "El campo 'name' es requerido." })
+    return res.status(400).json({ message: "El campo 'name' es requerido y solo debe contener caracteres." })
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -250,7 +256,7 @@ router.post('/:id/leads', (req, res, next) => {
   }
 
   try {
-    const lead = landingService.createLead(req.params.id, req.body)
+    const lead = landingService.createLead(parseId, req.body)
     res.status(201).json(lead)
   } catch (err) {
     next(err)
