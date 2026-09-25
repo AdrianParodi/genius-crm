@@ -6,8 +6,12 @@ const landingService = require('../services/landingService')
 require('dotenv').config();
 
 app.use(cors({
-  origin: process.env.FRONT
-}))
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
 
 /**
  * @swagger
