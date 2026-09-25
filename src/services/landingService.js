@@ -110,7 +110,14 @@ function getCountleads() {
 };
 
 function createLead(landingId, data) {
-  getLandingById(landingId)
+  const landing = getLandingById(landingId)
+  const emailExist = db.leads.find(lead => lead.email === data.email && lead.landingId === landing.id);
+
+  if (emailExist) {
+    const error = new Error(`Email ya registrado`);
+    error.statusCode = 404;
+    throw error;
+  }
 
   const lead = {
     id: db.nextLeadId++,

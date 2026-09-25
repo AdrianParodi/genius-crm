@@ -246,7 +246,9 @@ app.post('/:id/leads', (req, res, next) => {
     return res.status(400).json({message: "Id invalido"})
   }
 
-  if (!name || typeof name !== 'string' || name.trim().length === 0) {
+  const nameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+ 
+  if (!name || typeof name !== 'string' || name.trim().length === 0 || !nameRegex.test(name.trim())) {
     return res.status(400).json({ message: "El campo 'name' es requerido y solo debe contener caracteres." })
   }
 
