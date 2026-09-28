@@ -1,6 +1,7 @@
 const express = require('express')
-const router = express.Router()
+const app = express()
 const landingService = require('../services/landingService')
+const cors = require("cors")
 
 require('dotenv').config();
 
@@ -27,7 +28,7 @@ app.use(cors({
  *               items:
  *                 $ref: '#/components/schemas/Landing'
  */
-router.get('/', (req, res, next) => {
+app.get('/', (req, res, next) => {
   try {
     res.json(landingService.getAllLandings())
   } catch (error) {
@@ -128,7 +129,7 @@ app.post('/', (req, res, next) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get('/:id/preview', (req, res, next) => {
+app.get('/:id/preview', (req, res, next) => {
   try {
     const html = landingService.getLandingPreview(req.params.id)
     res.setHeader('Content-Type', 'text/html')
@@ -166,7 +167,7 @@ router.get('/:id/preview', (req, res, next) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get('/:id/leads', (req, res, next) => {
+app.get('/:id/leads', (req, res, next) => {
   try {
     res.json(landingService.getLeadsByLanding(req.params.id))
   } catch (err) {
@@ -212,7 +213,7 @@ router.get('/:id/leads', (req, res, next) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post('/:id/leads', (req, res, next) => {
+app.post('/:id/leads', (req, res, next) => {
   try {
     const lead = landingService.createLead(req.params.id, req.body)
     res.status(201).json(lead)
@@ -247,7 +248,7 @@ router.post('/:id/leads', (req, res, next) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get('/id/:id', (req, res, next) => {
+app.get('/id/:id', (req, res, next) => {
 
   const { id } = req.params;
   const parseId = parseInt(id);
@@ -290,7 +291,7 @@ router.get('/id/:id', (req, res, next) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get('/client/:client', (req, res, next) => {
+app.get('/client/:client', (req, res, next) => {
 
   const {client} = req.params;
 
@@ -340,7 +341,7 @@ router.get('/client/:client', (req, res, next) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.patch('/:id', (req, res, next) => {
+app.patch('/:id', (req, res, next) => {
 
   const { id } = req.params;
   const parseId = parseInt(id);
@@ -367,4 +368,4 @@ router.patch('/:id', (req, res, next) => {
   }
 });
 
-module.exports = router;
+module.exports = app;
