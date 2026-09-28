@@ -80,6 +80,23 @@ const db = {
       },
       createdAt: '2026-03-15T09:00:00.000Z'
     },
+    {
+      id: 6,
+      templateId: 0,
+      name: 'Mundial 2026 - SuenoSimple',
+      client: 'SuenoSimple',
+      status: 'active',
+      fields: {
+        title: 'Mundial 2026',
+        subtitle: 'Sigue los mejores momentos del torneo',
+
+        ctaText: 'Ver productos',
+        ctaUrl: 'https://suenosimple.com/mundial-2026',
+        eventDate: '2026-11-27',
+        heroImageUrl: 'https://via.placeholder.com/1200x400'
+      },
+      createdAt: '2026-03-15T09:00:00.000Z'
+    },
   ],
   leads: [
     {
