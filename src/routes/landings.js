@@ -2,6 +2,15 @@ const express = require('express')
 const router = express.Router()
 const landingService = require('../services/landingService')
 
+require('dotenv').config();
+
+app.use(cors({
+  origin: process.env.FRONT,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
 /**
  * @swagger
  * /api/landings:
@@ -63,7 +72,27 @@ router.get('/', (req, res, next) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post('/', (req, res, next) => {
+app.post('/', (req, res, next) => {
+
+  const {name, client, templateId} = req.body;
+  const clientes = ["suenosimple", "techStore"];
+
+  if(!templateId || typeof templateId !== "number"){
+    return res.status(400).json({message: "El campo 'template' es obligatorio y debe ser una opcion valida"})
+  }
+
+  if(!name || typeof name !== "string"){
+    return res.status(400).json({message: "El campo 'name' es obligatorio y debe ser un texto."})
+  }
+
+  if(!client || typeof client !== "string"){
+    return res.status(400).json({message: "El campo 'client' es obligatorio y debe ser un texto."})
+  }
+
+  if(!clientes.includes(client.toLowerCase())){
+    return res.status(400).json({message: "Cliente no registrado, intente nuevamente."})
+  }
+
   try {
     const landing = landingService.createLanding(req.body)
     res.status(201).json(landing)

@@ -42,7 +42,14 @@ function editStatusLanding(id, status){
 };
 
 function createLanding(data) {
-  const template = templateService.getTemplateById(data.templateId)
+  const template = templateService.getTemplateById(data.templateId);
+  const landingExist = db.landings.find(l => l.name === data.name);
+
+  if(landingExist){
+    const error = new Error(`Landing existente.`);
+    error.statusCode = 404;
+    throw error;
+  }
 
   const landing = {
     id: db.nextLandingId++,
@@ -59,19 +66,19 @@ function createLanding(data) {
 };
 
 function getLandingPreview(id) {
-  const landing = getLandingById(id)
-  const template = templateService.getTemplateById(landing.templateId)
+  const landing = getLandingById(id);
+  const template = templateService.getTemplateById(landing.templateId);
 
-  let html = template.html
+  let html = template.html;
 
   Object.keys(landing.fields).forEach(key => {
     const regex = new RegExp(`\\{\\{${key}\\}\\}`, 'g')
     html = html.replace(regex, landing.fields[key] || '')
-  })
+  });
 
-  html = html.replace(/\{\{clientName\}\}/g, landing.client || '')
+  html = html.replace(/\{\{clientName\}\}/g, landing.client || '');
 
-  return html
+  return html;
 };
 
 function getLeadsByLanding(landingId) {
