@@ -130,8 +130,16 @@ app.post('/', (req, res, next) => {
  *               $ref: '#/components/schemas/Error'
  */
 app.get('/:id/preview', (req, res, next) => {
+
+  const {id} = req.params;
+  const parseId = +id;
+  
+  if(isNaN(parseId)){
+    return res.status(400).json({message: "Id invalido"})
+  }
+
   try {
-    const html = landingService.getLandingPreview(req.params.id)
+    const html = landingService.getLandingPreview(parseId);
     res.setHeader('Content-Type', 'text/html')
     res.send(html)
   } catch (error) {
@@ -168,8 +176,16 @@ app.get('/:id/preview', (req, res, next) => {
  *               $ref: '#/components/schemas/Error'
  */
 app.get('/:id/leads', (req, res, next) => {
+
+  const {id} = req.params;
+  const parseId = +id;
+  
+  if(isNaN(parseId)){
+    return res.status(400).json({message: "Id invalido"})
+  }
+
   try {
-    res.json(landingService.getLeadsByLanding(req.params.id))
+    res.json(landingService.getLeadsByLanding(parseId))
   } catch (err) {
     next(err)
   }
@@ -214,8 +230,17 @@ app.get('/:id/leads', (req, res, next) => {
  *               $ref: '#/components/schemas/Error'
  */
 app.post('/:id/leads', (req, res, next) => {
+
+
+  const {id} = req.params;
+  const parseId = +id;
+  
+  if(isNaN(parseId)){
+    return res.status(400).json({message: "Id invalido"})
+  }
+
   try {
-    const lead = landingService.createLead(req.params.id, req.body)
+    const lead = landingService.createLead(parseId, req.body)
     res.status(201).json(lead)
   } catch (err) {
     next(err)

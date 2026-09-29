@@ -35,7 +35,6 @@ function getLandingById(id) {
 function editStatusLanding(id, status){
 
   const landing = getLandingById(id);
-
   landing.status = status;
   
   return landing;

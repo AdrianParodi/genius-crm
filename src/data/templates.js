@@ -75,12 +75,9 @@ const productLaunchHtml = `<!DOCTYPE html>
 <body>
   <div class="card">
     <p class="client-name">{{client}}</p>
-    <h1>{{productName}}</h1>
-    <p class="description">{{productDescription}}</p>
-    <div class="pricing">
-      <p class="original-price">Antes: {{originalPrice}}</p>
-      <p class="current-price"><span class="currency">$</span>{{price}}</p>
-    </div>
+    <h1>{{title}}</h1>
+    <p class="description">{{subtitle}}</p>
+  
     <a href="{{ctaUrl}}" class="cta">{{ctaText}}</a>
   </div>
 </body>
