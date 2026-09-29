@@ -5,8 +5,8 @@ const templateRoutes = require('./routes/templates')
 const landingRoutes = require('./routes/landings')
 const errorHandler = require('./middleware/errorHandler')
 
-const app = express()
-app.use(express.json())
+const app = express();
+app.use(express.json());
 
 const swaggerSpec = swaggerJsdoc({
   definition: {
@@ -63,6 +63,17 @@ const swaggerSpec = swaggerJsdoc({
             fields: { type: 'object', additionalProperties: true },
             leadCount: { type: 'integer', example: 3 },
             createdAt: { type: 'string', format: 'date-time' }
+          }
+        },
+
+         CreateLeadRequest: {
+          type: 'object',
+          required: ['name', 'email'],
+          properties: {
+            name: { type: 'string', example: 'Maria Gomez' },
+            email: { type: 'string', format: 'email', example: 'maria@gmail.com' },
+            phone: { type: 'string', example: '1134567890' },
+            message: { type: 'string', nullable: true }
           }
         },
         Lead: {

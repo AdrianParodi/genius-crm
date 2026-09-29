@@ -12,6 +12,16 @@ app.use(cors({
   credentials: true
 }));
 
+require('dotenv').config();
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
+
 /**
  * @swagger
  * /api/landings:
@@ -31,6 +41,30 @@ app.use(cors({
 app.get('/', (req, res, next) => {
   try {
     res.json(landingService.getAllLandings())
+  } catch (error) {
+    next(error)
+  }
+})
+
+/**
+ * @swagger
+ * /api/landings/summary:
+ *   get:
+ *     summary: Listar todos los leads
+ *     tags: [Leads]
+ *     responses:
+ *       200:
+ *         description: Listar los leads
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Leads'
+ */
+app.get('/summary', (req, res, next) => {
+  try {
+    res.json(landingService.getCountleads())
   } catch (error) {
     next(error)
   }
@@ -222,6 +256,12 @@ app.get('/:id/leads', (req, res, next) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Lead'
+ *       400:
+ *         description: Datos inválidos (name o email faltante/inválido)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       404:
  *         description: Landing no encontrada
  *         content:
@@ -231,12 +271,24 @@ app.get('/:id/leads', (req, res, next) => {
  */
 app.post('/:id/leads', (req, res, next) => {
 
+  const { name, email } = req.body;
 
-  const {id} = req.params;
-  const parseId = +id;
-  
+  const { id } = req.params;
+  const parseId = parseInt(id);
+
   if(isNaN(parseId)){
     return res.status(400).json({message: "Id invalido"})
+  }
+
+  const nameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+ 
+  if (!name || typeof name !== 'string' || name.trim().length === 0 || !nameRegex.test(name.trim())) {
+    return res.status(400).json({ message: "El campo 'name' es requerido y solo debe contener caracteres." })
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!email || typeof email !== 'string' || !emailRegex.test(email.trim())) {
+    return res.status(400).json({ message: "El campo 'email' es requerido y debe tener un formato válido." })
   }
 
   try {
@@ -249,7 +301,7 @@ app.post('/:id/leads', (req, res, next) => {
 
 /**
  * @swagger
- * /api/landings/{id}:
+ * /api/landings/id/{id}:
  *   get:
  *     summary: Obtener una landing por ID
  *     tags: [Landings]
@@ -292,7 +344,7 @@ app.get('/id/:id', (req, res, next) => {
 
 /**
  * @swagger
- * /api/landings/{client}:
+ * /api/landings/client/{client}:
  *   get:
  *     summary: Obtener una landing por cliente
  *     tags: [Landings]

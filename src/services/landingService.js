@@ -1,6 +1,11 @@
 const db = require('../data/db')
 const templateService = require('./templateService')
 
+//  Function to normalize strings for comparison, removing accents and converting to lowercase
+function normalize(str) {
+  return str.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+}
+
 function getAllLandings() {
   return db.landings.map(landing => ({
     ...landing,
@@ -8,11 +13,12 @@ function getAllLandings() {
   }))
 };
 
-function getAllLandingsByClient(client) {
-
-  const landing = db.landings.filter(landing => landing.client === client);
+function getAllLandingsByClient(client) { 
+  const normalizedClient = normalize(client);
+  const landing = db.landings.filter(landing => landing.client.toLowerCase().includes(normalizedClient));
+   
   if (landing.length === 0) {
-    const error = new Error(`Landing not found: ${client}`);
+    const error = new Error(`Landings not found: ${client}`);
     error.statusCode = 404;
     throw error;
   }
@@ -81,18 +87,49 @@ function getLandingPreview(id) {
 };
 
 function getLeadsByLanding(landingId) {
-  getLandingById(landingId)
-  return db.leads.filter(l => l.landingId === Number(landingId))
+
+  const landing = getLandingById(landingId);
+  const leads = db.leads.filter(l => l.landingId === landing.id);
+  
+  if (leads.length === 0) {
+    const error = new Error(`Leads not found`);
+    error.statusCode = 404;
+    throw error;
+  }
+
+  return leads
+};
+
+function getLeadsByLanding(landingId) {
+
+  const landing = getLandingById(landingId);
+  const leads = db.leads.filter(l => l.landingId === landing.id);
+
+  return leads
+};
+
+function getCountleads() {
+
+  return db.leads.map(leads => ({
+    ...leads,
+  }))
 };
 
 function createLead(landingId, data) {
-  getLandingById(landingId)
+  const landing = getLandingById(landingId)
+  const emailExist = db.leads.find(lead => lead.email === data.email && lead.landingId === landing.id);
+
+  if (emailExist) {
+    const error = new Error(`Email ya registrado`);
+    error.statusCode = 404;
+    throw error;
+  }
 
   const lead = {
     id: db.nextLeadId++,
     landingId: Number(landingId),
-    name: data.name,
-    email: data.email,
+    name: data.name.trim(),
+    email: data.email.trim().toLowerCase(),
     phone: data.phone || null,
     message: data.message || null,
     createdAt: new Date().toISOString()
@@ -102,5 +139,5 @@ function createLead(landingId, data) {
   return lead
 };
 
-module.exports = { getAllLandings, getAllLandingsByClient, getLandingById, createLanding, getLandingPreview, getLeadsByLanding, createLead, editStatusLanding };
+module.exports = { getAllLandings, getAllLandingsByClient, getLandingById, createLanding, getLandingPreview, getLeadsByLanding, createLead, editStatusLanding, getCountleads };
 
