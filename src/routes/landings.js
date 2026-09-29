@@ -1,7 +1,16 @@
-const express = require('express');
-const cors = require('cors');
+const express = require('express')
 const app = express()
 const landingService = require('../services/landingService')
+const cors = require("cors")
+
+require('dotenv').config();
+
+app.use(cors({
+  origin: process.env.FRONT,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
 
 require('dotenv').config();
 
@@ -99,6 +108,26 @@ app.get('/summary', (req, res, next) => {
  *               $ref: '#/components/schemas/Error'
  */
 app.post('/', (req, res, next) => {
+
+  const {name, client, templateId} = req.body;
+  const clientes = ["suenosimple", "techStore"];
+
+  if(!templateId || typeof templateId !== "number"){
+    return res.status(400).json({message: "El campo 'template' es obligatorio y debe ser una opcion valida"})
+  }
+
+  if(!name || typeof name !== "string"){
+    return res.status(400).json({message: "El campo 'name' es obligatorio y debe ser un texto."})
+  }
+
+  if(!client || typeof client !== "string"){
+    return res.status(400).json({message: "El campo 'client' es obligatorio y debe ser un texto."})
+  }
+
+  if(!clientes.includes(client.toLowerCase())){
+    return res.status(400).json({message: "Cliente no registrado, intente nuevamente."})
+  }
+
   try {
     const landing = landingService.createLanding(req.body)
     res.status(201).json(landing)
@@ -135,16 +164,16 @@ app.post('/', (req, res, next) => {
  *               $ref: '#/components/schemas/Error'
  */
 app.get('/:id/preview', (req, res, next) => {
-  
-  const { id } = req.params;
-  const parseId = parseInt(id);
 
+  const {id} = req.params;
+  const parseId = +id;
+  
   if(isNaN(parseId)){
     return res.status(400).json({message: "Id invalido"})
   }
 
   try {
-    const html = landingService.getLandingPreview(id)
+    const html = landingService.getLandingPreview(parseId);
     res.setHeader('Content-Type', 'text/html')
     res.send(html)
   } catch (error) {
@@ -182,9 +211,9 @@ app.get('/:id/preview', (req, res, next) => {
  */
 app.get('/:id/leads', (req, res, next) => {
 
-  const { id } = req.params;
-  const parseId = parseInt(id);
-
+  const {id} = req.params;
+  const parseId = +id;
+  
   if(isNaN(parseId)){
     return res.status(400).json({message: "Id invalido"})
   }
@@ -241,6 +270,7 @@ app.get('/:id/leads', (req, res, next) => {
  *               $ref: '#/components/schemas/Error'
  */
 app.post('/:id/leads', (req, res, next) => {
+
   const { name, email } = req.body;
 
   const { id } = req.params;

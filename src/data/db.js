@@ -41,6 +41,7 @@ const db = {
       client: 'SuenoSimple',
       status: 'draft',
       fields: {
+        client: "Sueño Simple",
         title: 'Dormir bien no es un lujo',
         description: 'Suscribite y recibí ofertas exclusivas antes que nadie. Solo por tiempo limitado.',
         ctaText: 'Quiero ofertas',
@@ -55,6 +56,7 @@ const db = {
       client: 'TechStore',
       status: 'draft',
       fields: {
+        client: "TechStore",
         title: 'Black Friday TechStore',
         subtitle: 'Los mejores precios del año en tecnología',
         ctaText: 'Ver productos',
@@ -71,6 +73,7 @@ const db = {
       client: 'SuenoSimple',
       status: 'draft',
       fields: {
+        client: "Sueno Simple",
         title: 'Dia de la madre',
         subtitle: 'Lo mejor para la mejor mama',
         ctaText: 'Ver productos',
