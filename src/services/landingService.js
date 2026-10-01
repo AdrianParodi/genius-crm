@@ -10,13 +10,21 @@ function getAllLandings() {
 
 function getAllLandingsByClient(client) {
 
-  const landing = db.landings.filter(landing => landing.client === client);
-  if (landing.length === 0) {
-    const error = new Error(`Landing not found: ${client}`);
+  const clientExist = db.clients.find(c => c.name === client);
+  if (!clientExist) {
+    const error = new Error(`El cliente "${client}" no existe.`);
     error.statusCode = 404;
     throw error;
   }
-  return landing;
+
+  const landingHasLanding = db.landings.filter(landing => landing.client === client);
+  
+  if (landingHasLanding.length === 0) {
+    const error = new Error(`El cliente "${client}" no tiene landings creadas.`);
+    error.statusCode = 404;
+    throw error;
+  }
+  return landingHasLanding;
 
 };
 
@@ -85,6 +93,10 @@ function getLeadsByLanding(landingId) {
   return db.leads.filter(l => l.landingId === Number(landingId))
 };
 
+function getAllLeads() {
+  return db.leads
+};
+
 function createLead(landingId, data) {
   getLandingById(landingId)
 
@@ -102,5 +114,5 @@ function createLead(landingId, data) {
   return lead
 };
 
-module.exports = { getAllLandings, getAllLandingsByClient, getLandingById, createLanding, getLandingPreview, getLeadsByLanding, createLead, editStatusLanding };
+module.exports = { getAllLandings, getAllLandingsByClient, getLandingById, createLanding, getLandingPreview, getLeadsByLanding, createLead, getAllLeads, editStatusLanding };
 

@@ -1,0 +1,9 @@
+$kind: http-request
+url: http://localhost:4000/api/productos/2
+method: PATCH
+queryParams:
+  - key: nombre
+    value: null
+    disabled: true
+settings: {}
+order: 4000

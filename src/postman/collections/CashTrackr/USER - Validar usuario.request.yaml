@@ -1,0 +1,9 @@
+$kind: http-request
+url: http://localhost:4000/api/users/user
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{USER1}}"
+settings: {}
+order: 19000

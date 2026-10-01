@@ -1,0 +1,17 @@
+$kind: http-request
+url: http://localhost:4000/api/proyectos
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "nombreProyecto": "Tienda virtual para Compumundo",
+        "nombreCliente": "Compumundo",
+        "descripcion": "dadawdadawdawdadawdd222a"
+    }
+auth:
+  type: bearer
+  credentials:
+    token: ""
+settings: {}
+order: 2000

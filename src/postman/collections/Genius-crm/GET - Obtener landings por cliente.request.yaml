@@ -1,0 +1,5 @@
+$kind: http-request
+url: http://localhost:3000/api/landings/client/SuenoSimple
+method: GET
+settings: {}
+order: 3000

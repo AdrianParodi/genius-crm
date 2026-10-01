@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{PROPIEDADES}}editar/66703378bf1706cf3a75bddd"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"titulo\": \"Casa de rancho\",\r
+
+    \    \"direccion\": \"ruta 605, km 19\"\r
+
+    }"
+settings: {}
+order: 4000

@@ -1,0 +1,17 @@
+$kind: http-request
+url: http://localhost:4000/api/auth/perfil/cambiarPass
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "contraseña_actual": "joselo9876",
+        "contraseña_nueva": "jaimito",
+        "contraseña_confirmar": "jaimito"
+    }
+auth:
+  type: bearer
+  credentials:
+    token: ""
+settings: {}
+order: 22000

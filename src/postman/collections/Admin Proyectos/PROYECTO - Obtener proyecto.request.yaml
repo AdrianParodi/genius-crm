@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{LocalHost}}/proyectos/68d4966d8622fdae66af3875"
+method: GET
+auth:
+  type: noauth
+settings: {}
+order: 3000

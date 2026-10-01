@@ -3,6 +3,7 @@ const swaggerJsdoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
 const templateRoutes = require('./routes/templates')
 const landingRoutes = require('./routes/landings')
+const clientRoutes = require('./routes/clients')
 const errorHandler = require('./middleware/errorHandler')
 
 const app = express()
@@ -94,6 +95,7 @@ app.get('/openapi.json', (req, res) => res.json(swaggerSpec))
 
 app.use('/api/templates', templateRoutes)
 app.use('/api/landings', landingRoutes)
+app.use('/api/clients', clientRoutes)
 
 app.use(errorHandler)
 

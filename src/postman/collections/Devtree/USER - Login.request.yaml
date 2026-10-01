@@ -1,0 +1,16 @@
+$kind: http-request
+url: http://localhost:4000/auth/login
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "email" : "alejandro@ale.com",
+        "password" : "123456789"
+    }
+auth:
+  type: bearer
+  credentials:
+    token: ""
+settings: {}
+order: 4000

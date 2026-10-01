@@ -1,0 +1,5 @@
+$kind: http-request
+url: "{{URL_API}}/veterinarios/confirmar"
+method: GET
+settings: {}
+order: 3000

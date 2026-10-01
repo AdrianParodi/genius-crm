@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{URL_API}}/pacientes/6632b6229b096d39516b9770"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"nombre\": \"Firulais\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{bearer_token}}"
+settings: {}
+order: 11000

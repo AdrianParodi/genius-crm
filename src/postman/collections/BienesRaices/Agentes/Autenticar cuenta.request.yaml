@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{AGENTES}}login"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"email\": \"RoberG@gmail.com\",\r
+
+    \    \"password\": \"123456789\"\r
+
+    }"
+settings: {}
+order: 4000

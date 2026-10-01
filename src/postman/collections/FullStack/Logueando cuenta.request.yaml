@@ -1,0 +1,5 @@
+$kind: http-request
+url: "{{URL_API}}/veterinarios/login"
+method: POST
+settings: {}
+order: 4000

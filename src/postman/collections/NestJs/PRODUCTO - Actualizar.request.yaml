@@ -1,0 +1,15 @@
+$kind: http-request
+url: http://localhost:3000/products/1
+method: PATCH
+body:
+  type: json
+  content: |-
+    {
+        "name" : "Coca cola",
+        "description" : "Bebida azucarada",
+        "price" : 10.5,
+        "stock" : 50,
+        "categoryId" : 1
+    }
+settings: {}
+order: 2000

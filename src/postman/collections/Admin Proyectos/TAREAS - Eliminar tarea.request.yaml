@@ -1,0 +1,5 @@
+$kind: http-request
+url: "{{LocalHost}}/proyectos/68d4966d8622fdae66af3875/tareas/68d5ac343a8b48b3edc48cea"
+method: DELETE
+settings: {}
+order: 9000

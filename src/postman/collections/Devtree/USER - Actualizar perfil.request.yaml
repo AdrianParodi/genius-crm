@@ -1,0 +1,16 @@
+$kind: http-request
+url: http://localhost:4000/user
+method: PATCH
+body:
+  type: json
+  content: |-
+    {
+        "handle" : "dawdwddddd",
+        "description" : "soy un tipo muy groso"
+    }
+auth:
+  type: bearer
+  credentials:
+    token: ""
+settings: {}
+order: 5000

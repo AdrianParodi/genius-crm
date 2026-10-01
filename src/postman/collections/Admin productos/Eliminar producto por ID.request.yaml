@@ -1,0 +1,9 @@
+$kind: http-request
+url: http://localhost:4000/api/productos/1
+method: DELETE
+queryParams:
+  - key: nombre
+    value: ""
+    disabled: true
+settings: {}
+order: 3000

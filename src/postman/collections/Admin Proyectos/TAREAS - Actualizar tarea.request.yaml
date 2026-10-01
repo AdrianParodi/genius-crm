@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{LocalHost}}/proyectos/68d4966d8622fdae66af3875/tareas/68d5abe73a8b48b3edc48ce6"
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+        "nombre": "Añadir CSS",
+        "descripcion": "Añadir css a los componentes de la pagina"
+    }
+settings: {}
+order: 8000

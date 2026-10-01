@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{LocalHost}}/auth/crearCuenta"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "email": "da533d@wda.com",
+        "nombre": "nico",
+        "contraseña":"holaxxx1234",
+        "contraseña_confirmar":"holaxxx1234"
+      
+    }
+settings: {}
+order: 10000

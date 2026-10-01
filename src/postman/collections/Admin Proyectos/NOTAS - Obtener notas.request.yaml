@@ -1,0 +1,12 @@
+$kind: http-request
+url: http://localhost:4000/api/proyectos/68ea163878a5377f11e70018/tareas/68f1014ba2962469bc04e6ce/notas/68f10202f2418311b47896d0
+method: GET
+body:
+  type: formdata
+  content: []
+auth:
+  type: bearer
+  credentials:
+    token: ""
+settings: {}
+order: 17000

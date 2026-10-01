@@ -1,0 +1,11 @@
+$kind: http-request
+url: http://localhost:4000/api/users/validateToken
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "token": "896520"
+    }
+settings: {}
+order: 17000

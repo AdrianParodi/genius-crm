@@ -1,0 +1,11 @@
+$kind: http-request
+url: http://localhost:3000/api/clients
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "name" : "cocacola",
+        "folder":  "cocacolita"
+    }
+order: 11000

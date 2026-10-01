@@ -1,0 +1,12 @@
+$kind: http-request
+url: http://localhost:4000/api/budgets/3
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+        "name": "gymnasio",
+        "amount": 0
+    }
+settings: {}
+order: 2000

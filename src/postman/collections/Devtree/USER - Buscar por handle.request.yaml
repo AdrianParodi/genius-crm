@@ -1,0 +1,11 @@
+$kind: http-request
+url: http://localhost:4000/search
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "handle": "dawdwdadd33222"
+    }
+settings: {}
+order: 8000

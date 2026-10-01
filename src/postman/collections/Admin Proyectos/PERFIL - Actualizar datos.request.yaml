@@ -1,0 +1,15 @@
+$kind: http-request
+url: http://localhost:4000/api/auth/perfil
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+        "nombre": "jaimito"
+    }
+auth:
+  type: bearer
+  credentials:
+    token: ""
+settings: {}
+order: 21000

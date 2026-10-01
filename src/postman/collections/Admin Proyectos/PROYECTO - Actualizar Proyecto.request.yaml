@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{LocalHost}}/proyectos/68d4966d8622fdae66af3875"
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+        "nombreCliente": "pastelito2",
+        "nombreProyecto": "",
+        "descripcion":"dawdawdwa"
+    }
+settings: {}
+order: 4000

@@ -1,0 +1,15 @@
+$kind: http-request
+url: http://localhost:4000/api/auth/perfil/comprobarPass
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "contraseña" : ""
+    }
+auth:
+  type: bearer
+  credentials:
+    token: ""
+settings: {}
+order: 23000

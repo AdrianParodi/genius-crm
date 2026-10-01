@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{URL_API}}/veterinarios/olvide-pass"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"email\": \"dadw@dada.com\"\r
+
+    }"
+settings: {}
+order: 5000

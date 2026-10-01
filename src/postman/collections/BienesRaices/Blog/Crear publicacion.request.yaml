@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{BLOGS}}"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"titulo\": \"nose que cosa\",\r
+
+    \    \"contenido\": \"lordwadwadawdadadwdadwdwadawdwa\",\r
+
+    \    \"imagen\": \"dawdwadaw\"\r
+
+    }"
+settings: {}
+order: 2000

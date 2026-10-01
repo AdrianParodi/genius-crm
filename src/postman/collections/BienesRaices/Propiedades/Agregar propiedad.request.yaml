@@ -1,0 +1,39 @@
+$kind: http-request
+url: http://localhost:4000/api/propiedades/agregar
+method: POST
+body:
+  type: formdata
+  content:
+    - type: text
+      key: titulo
+      value: dwadadaw
+    - type: text
+      key: direccion
+      value: dawd 323
+    - type: text
+      key: banios
+      value: "1"
+    - type: text
+      key: estacionamientos
+      value: "5"
+    - type: text
+      key: habitaciones
+      value: "5"
+    - type: text
+      key: descripcion
+      value: Casa muy linda
+    - type: file
+      key: foto
+      src: /C:/Users/niko-/Desktop/Proyectos/anuncio3.jpg
+    - type: text
+      key: operacion
+      value: venta
+    - type: text
+      key: fechaIngreso
+      value: 11/02
+auth:
+  type: bearer
+  credentials:
+    token: ""
+settings: {}
+order: 2000

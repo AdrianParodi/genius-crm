@@ -1,0 +1,5 @@
+$kind: http-request
+url: http://localhost:4000/api/veterinarios
+method: POST
+settings: {}
+order: 1000

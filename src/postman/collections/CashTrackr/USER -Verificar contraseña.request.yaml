@@ -1,0 +1,15 @@
+$kind: http-request
+url: http://localhost:4000/api/users/checkPassword
+method: POST
+body:
+  type: json
+  content: |-
+    {   
+        "password": "1234567"
+    }
+auth:
+  type: bearer
+  credentials:
+    token: ""
+settings: {}
+order: 21000

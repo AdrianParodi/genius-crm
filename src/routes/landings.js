@@ -230,13 +230,18 @@ app.get('/:id/leads', (req, res, next) => {
  *               $ref: '#/components/schemas/Error'
  */
 app.post('/:id/leads', (req, res, next) => {
-
-
+  const { name, email } = req.body
   const {id} = req.params;
   const parseId = +id;
-  
-  if(isNaN(parseId)){
-    return res.status(400).json({message: "Id invalido"})
+
+  const nameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+  if (!name || typeof name !== 'string' || name.trim().length === 0  || !nameRegex.test(name.trim())) {
+    return res.status(400).json({ message: "El campo 'name' es requerido y solo puede contener caracteres." })
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!email || typeof email !== 'string' || !emailRegex.test(email.trim())) {
+    return res.status(400).json({ message: "El campo 'email' es requerido y debe tener un formato válido." })
   }
 
   try {
@@ -246,6 +251,31 @@ app.post('/:id/leads', (req, res, next) => {
     next(err)
   }
 });
+
+
+/**
+ * @swagger
+ * /api/landings/leads:
+ *   get:
+ *     summary: Listar todas los leads
+ *     tags: [Landings]
+ *     responses:
+ *       200:
+ *         description: Lista de leads
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Leads'
+ */
+app.get('/leads', (req, res, next) => {
+  try {
+    res.json(landingService.getAllLeads())
+  } catch (error) {
+    next(error)
+  }
+})
 
 /**
  * @swagger

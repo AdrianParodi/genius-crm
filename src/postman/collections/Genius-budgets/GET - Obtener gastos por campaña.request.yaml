@@ -1,0 +1,4 @@
+$kind: http-request
+url: http://localhost:8080/api/campaigns/1/expenses
+method: GET
+order: 4000

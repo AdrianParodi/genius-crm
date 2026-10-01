@@ -1,0 +1,5 @@
+$kind: http-request
+url: "{{URL_API}}/veterinarios/olvide-pass"
+method: GET
+settings: {}
+order: 6000

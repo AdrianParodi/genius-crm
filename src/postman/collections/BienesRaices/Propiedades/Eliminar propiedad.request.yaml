@@ -1,0 +1,5 @@
+$kind: http-request
+url: "{{PROPIEDADES}}eliminar/66702ea8743464b7781bc1ef"
+method: DELETE
+settings: {}
+order: 5000

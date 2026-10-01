@@ -1,0 +1,15 @@
+$kind: http-request
+url: http://localhost:4000/api/proyectos/68ea163878a5377f11e70018/team
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "id" : "68ea1e5a0efd571b2c8732c4"
+    }
+auth:
+  type: bearer
+  credentials:
+    token: ""
+settings: {}
+order: 14000

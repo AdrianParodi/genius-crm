@@ -1,0 +1,13 @@
+$kind: http-request
+url: http://localhost:3000/coupons
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "name" : "Hanuka",
+        "expireAt" : "2026-04-08",
+        "discount": 50
+    }
+settings: {}
+order: 11000

@@ -1,0 +1,12 @@
+$kind: http-request
+url: http://localhost:4000/api/expenses/1/3
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+        "name": "Fotocopias",
+        "amount": "1000"
+    }
+settings: {}
+order: 11000

@@ -1,0 +1,12 @@
+$kind: http-request
+url: http://localhost:3000/api/tasks/create
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "title": "Limpiar",
+        "description": "limpiar la casa"
+    }
+settings: {}
+order: 2000

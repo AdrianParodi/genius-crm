@@ -1,0 +1,12 @@
+$kind: http-request
+url: http://localhost:4000/api/proyectos/68f10ac3329c6bccd4623907/tareas
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "nombre": "Creas API",
+        "descripcion": "organizar ideas para empezar el proyecto y empezar la creacion de la API"
+    }
+settings: {}
+order: 6000

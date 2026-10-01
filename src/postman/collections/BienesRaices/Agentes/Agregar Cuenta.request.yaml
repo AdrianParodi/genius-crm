@@ -1,0 +1,40 @@
+$kind: http-request
+url: "{{AGENTES}}"
+method: POST
+body:
+  type: formdata
+  content:
+    - type: text
+      key: nombre
+      value: Jose
+    - type: text
+      key: apellido
+      value: Hernandez
+    - type: text
+      key: telefono
+      value: "5468465153"
+    - type: text
+      key: email
+      value: jose@gmail.com
+    - type: text
+      key: domicilio
+      value: Heras 323
+    - type: text
+      key: fechaNacimiento
+      value: 1993-10-12T03:00:00
+    - type: text
+      key: token
+      value: 1i0pftfejfhoupcpo26
+      disabled: true
+    - type: text
+      key: confirmado
+      value: "false"
+      disabled: true
+    - type: text
+      key: _id
+      value: 6673771bc617c6bf5d974696
+    - type: file
+      key: foto
+      src: /C:/Users/niko-/Desktop/Proyectos/anuncio3.jpg
+settings: {}
+order: 1000

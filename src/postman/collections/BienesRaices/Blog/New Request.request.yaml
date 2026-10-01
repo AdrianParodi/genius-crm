@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{BLOGS}}/editar/66a09838fa4f27b54d8ffe07"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"titulo\": \"Lorem ipsum dolor sit amet\",\r
+
+    \    \"resumen\": \"Sit amet consectetur adipisicing elit. Odio, illum\",\r
+
+    \    \"contenido\": \"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis explicabo veritatis ex perspiciatis, cumque officiis, quod sed autem laborum dolorem excepturi unde, fugit accusantium ullam ipsam libero? Quam molestiae recusandae modi asperiores maiores dolor perspiciatis non ea porro voluptate in ipsa praesentium natus libero mollitia ex velit, eaque neque cumque possimus? Harum et perspiciatis non hic voluptatum eligendi dignissimos! Minus tempora suscipit esse non? Eligendi quidem, nulla recusandae consequuntur nihil mollitia qui libero omnis, suscipit odio tempora doloremque, temporibus dignissimos?\"\r
+
+    }"
+settings: {}
+order: 1000

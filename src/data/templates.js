@@ -75,8 +75,8 @@ const productLaunchHtml = `<!DOCTYPE html>
 <body>
   <div class="card">
     <p class="client-name">{{client}}</p>
-    <h1>{{title}}</h1>
-    <p class="description">{{subtitle}}</p>
+    <h1>{{productName}}</h1>
+    <p class="description">{{productDescription}}</p>
   
     <a href="{{ctaUrl}}" class="cta">{{ctaText}}</a>
   </div>
@@ -139,7 +139,7 @@ const templates = [
     id: 1,
     name: 'promo-event',
     description: 'Landing para eventos promocionales. Ideal para Hot Sale, Black Friday o Cyber Monday.',
-    requiredFields: ['title', 'subtitle', 'ctaText', 'ctaUrl', 'eventDate', 'heroImageUrl'],
+    requiredFields: ['client', 'title', 'subtitle', 'ctaText', 'ctaUrl', 'eventDate', 'heroImageUrl'],
     optionalFields: [],
     html: promoEventHtml
   },

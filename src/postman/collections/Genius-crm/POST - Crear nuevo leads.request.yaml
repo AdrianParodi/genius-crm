@@ -1,0 +1,11 @@
+$kind: http-request
+url: http://localhost:3000/api/landings/1/leads
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "name" : 32233323,
+        "email" : "dwadwdw@dawd.com"
+    }
+order: 7000

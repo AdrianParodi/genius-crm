@@ -1,0 +1,12 @@
+$kind: http-request
+url: http://localhost:4000/api/budgets/
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "name": "vacaciones",
+        "amount": "2000"
+    }
+settings: {}
+order: 1000

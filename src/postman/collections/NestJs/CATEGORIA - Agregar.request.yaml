@@ -1,0 +1,15 @@
+$kind: http-request
+url: http://localhost:3000/products
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "name" : "Zapatillas",
+        "description" : "Calzado deportivo",
+        "price" : 30.5,
+        "stock" : 50,
+        "categoryId" : 1
+    }
+settings: {}
+order: 3000

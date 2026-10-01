@@ -1,0 +1,5 @@
+$kind: http-request
+url: "{{URL_API}}/pacientes"
+method: POST
+settings: {}
+order: 8000

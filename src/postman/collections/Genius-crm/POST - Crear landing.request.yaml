@@ -1,0 +1,12 @@
+$kind: http-request
+url: http://localhost:3000/api/landings
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "templateId" : 1,
+        "name": "dawdwadd",
+        "client" : ""
+    }
+order: 8000

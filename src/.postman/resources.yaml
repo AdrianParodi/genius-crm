@@ -1,0 +1,14 @@
+workspace:
+  id: 0d5f9d3b-cf1b-4ad7-8903-fc3b09be05e3
+cloudResources:
+  collections:
+    ../postman/collections/Genius-budgets: 33123902-8d0aa27c-6948-48cb-8d86-77a4b68be53c
+    ../postman/collections/Genius-crm: 33123902-103eacf1-564f-4b23-9124-61073e6bb8cb
+    ../postman/collections/NestJs: 33123902-5d9a0aed-d0ca-4bd0-a2f3-46d660e19b13
+    ../postman/collections/Prueba docker: 33123902-dc726dd1-08e8-49f0-9b52-3bf9aaff20e6
+    ../postman/collections/CashTrackr: 33123902-3bc841cd-ac0d-4900-b982-4676cbefa867
+    ../postman/collections/Devtree: 33123902-f4f0f1d3-80c5-4c4f-973d-ad0c4736f769
+    ../postman/collections/Admin Proyectos: 33123902-5ef44214-da29-40f4-ac43-a0f1a5c79530
+    ../postman/collections/Admin productos: 33123902-984c91cd-b26b-4d4a-bb22-5421d1386372
+    ../postman/collections/BienesRaices: 33123902-24629445-782e-4990-b842-d88273712db5
+    ../postman/collections/FullStack: 33123902-30aa144a-e4ba-4cd1-a6a1-306711b2a5e2

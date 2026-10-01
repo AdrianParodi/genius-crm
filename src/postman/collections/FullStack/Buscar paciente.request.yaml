@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{URL_API}}/pacientes/6632b6229b096d39516b9770"
+method: GET
+body:
+  type: json
+  content: ""
+auth:
+  type: bearer
+  credentials:
+    token: "{{bearer_token}}"
+settings: {}
+order: 10000

@@ -54,8 +54,16 @@ router.get('/', (req, res, next) => {
  *               $ref: '#/components/schemas/Error'
  */
 router.get('/:id', (req, res, next) => {
+
+  const {id} = req.params;
+  const parseId = +id;
+  
+  if(isNaN(parseId)){
+    return res.status(400).json({message: "Id invalido"})
+  }
+
   try {
-    const { html, ...template } = templateService.getTemplateById(req.params.id)
+    const { html, ...template } = templateService.getTemplateById(parseId)
     res.json(template)
   } catch (err) {
     next(err)

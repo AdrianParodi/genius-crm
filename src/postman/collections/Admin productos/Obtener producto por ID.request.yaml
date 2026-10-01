@@ -1,0 +1,9 @@
+$kind: http-request
+url: http://localhost:4000/api/productos/1
+method: GET
+queryParams:
+  - key: nombre
+    value: null
+    disabled: true
+settings: {}
+order: 2000

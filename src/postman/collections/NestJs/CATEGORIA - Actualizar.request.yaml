@@ -1,0 +1,11 @@
+$kind: http-request
+url: http://localhost:3000/categories/4
+method: PATCH
+body:
+  type: json
+  content: |-
+    {
+        "name" : "Indumentaria"
+    }
+settings: {}
+order: 4000

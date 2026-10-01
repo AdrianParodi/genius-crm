@@ -1,0 +1,5 @@
+$kind: http-request
+url: "{{LocalHost}}/proyectos/68d4966d8622fdae66af3875/tareas"
+method: GET
+settings: {}
+order: 7000
