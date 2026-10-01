@@ -3,24 +3,10 @@ const app = express()
 const landingService = require('../services/landingService')
 const cors = require("cors")
 
-require('dotenv').config();
+//require('dotenv').config();
 
 app.use(cors({
-  origin: process.env.FRONT,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
 }));
-
-require('dotenv').config();
-
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-}));
-
 
 /**
  * @swagger
