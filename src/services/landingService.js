@@ -100,14 +100,6 @@ function getLeadsByLanding(landingId) {
   return leads
 };
 
-function getLeadsByLanding(landingId) {
-
-  const landing = getLandingById(landingId);
-  const leads = db.leads.filter(l => l.landingId === landing.id);
-
-  return leads
-};
-
 function getCountleads() {
 
   return db.leads.map(leads => ({

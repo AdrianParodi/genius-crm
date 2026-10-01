@@ -12,7 +12,7 @@ const db = {
         title: 'Hot Sale 2026',
         subtitle: 'Hasta 50% off en colchones',
         ctaText: 'Ver ofertas',
-        ctaUrl: 'https://suenosimple.com/hot-sale',
+        ctaUrl: 'hot-sale',
         eventDate: '2026-05-20',
         heroImageUrl: 'https://via.placeholder.com/1200x400'
       },
@@ -30,7 +30,7 @@ const db = {
         price: '85000',
         originalPrice: '120000',
         ctaText: 'Comprarlo ahora',
-        ctaUrl: 'https://suenosimple.com/economica-pro'
+        ctaUrl: 'economica-pro'
       },
       createdAt: '2026-03-15T09:00:00.000Z'
     },
@@ -45,6 +45,7 @@ const db = {
         title: 'Dormir bien no es un lujo',
         description: 'Suscribite y recibí ofertas exclusivas antes que nadie. Solo por tiempo limitado.',
         ctaText: 'Quiero ofertas',
+        ctaUrl: 'newsletter',
         privacyUrl: 'https://suenosimple.com/privacidad'
       },
       createdAt: '2026-04-10T14:00:00.000Z'
@@ -60,7 +61,7 @@ const db = {
         title: 'Black Friday TechStore',
         subtitle: 'Los mejores precios del año en tecnología',
         ctaText: 'Ver productos',
-        ctaUrl: 'https://techstore.com/black-friday',
+        ctaUrl: 'black-friday',
         eventDate: '2026-11-27',
         heroImageUrl: 'https://via.placeholder.com/1200x400'
       },
@@ -77,7 +78,7 @@ const db = {
         title: 'Dia de la madre',
         subtitle: 'Lo mejor para la mejor mama',
         ctaText: 'Ver productos',
-        ctaUrl: 'https://suenosimple.com/dia-de-la-madre',
+        ctaUrl: 'diadelamadre/dia-de-la-madre',
         eventDate: '2026-11-27',
         heroImageUrl: 'https://via.placeholder.com/1200x400'
       },
@@ -92,9 +93,8 @@ const db = {
       fields: {
         title: 'Mundial 2026',
         subtitle: 'Sigue los mejores momentos del torneo',
-
         ctaText: 'Ver productos',
-        ctaUrl: 'https://suenosimple.com/mundial-2026',
+        ctaUrl: 'mundial2026/mundial-2026',
         eventDate: '2026-11-27',
         heroImageUrl: 'https://via.placeholder.com/1200x400'
       },

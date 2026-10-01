@@ -34,7 +34,7 @@ app.get('/', (req, res, next) => {
 
 /**
  * @swagger
- * /api/landings/summary:
+ * /api/landings/leads:
  *   get:
  *     summary: Listar todos los leads
  *     tags: [Leads]
@@ -46,9 +46,9 @@ app.get('/', (req, res, next) => {
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Leads'
+ *                 $ref: '#/components/schemas/Lead'
  */
-app.get('/summary', (req, res, next) => {
+app.get('/leads', (req, res, next) => {
   try {
     res.json(landingService.getCountleads())
   } catch (error) {
